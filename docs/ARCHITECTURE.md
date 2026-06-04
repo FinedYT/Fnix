@@ -2,10 +2,12 @@ Client
  ↓
 TCP Listener
  ↓
+Connection Handler
+ ↓
 HTTP Parser
  ↓
 Router
  ↓
-Proxy Engine
+Response Builder
  ↓
-Backend
+Client
