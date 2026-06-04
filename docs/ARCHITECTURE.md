@@ -1,5 +1,4 @@
-Client
- ↓
+Core Request Flow:
 TCP Listener
  ↓
 Connection Handler
@@ -7,6 +6,8 @@ Connection Handler
 HTTP Parser
  ↓
 Router
+ ↓
+Handler(Error handler if route not found)
  ↓
 Response Builder
  ↓
@@ -20,3 +21,12 @@ Request Lifecycle:
 5. Router selects target handler
 6. Response is generated
 7. Response is sent back to client
+
+Networking Layer Responsibilities:
+- Listener listens for incoming connections
+- Connection performs the connection
+- Connection Manager manages incoming connections
+Networking Layer does not:
+- parse HTTP
+- route requests
+- generate responses
