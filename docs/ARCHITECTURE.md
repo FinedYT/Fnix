@@ -11,6 +11,8 @@ Handler(Error handler if route not found)
  ↓
 Response Builder
  ↓
+Connection Handler
+ ↓
 Client
 
 Request Lifecycle:
