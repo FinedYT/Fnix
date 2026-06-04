@@ -32,3 +32,15 @@ Networking Layer does not:
 - parse HTTP
 - route requests
 - generate responses
+
+Networking Layer
+
+Listener
+- Creates TCP socket
+- Binds address
+- Accepts connections
+
+Connection
+- Reads client data
+- Sends data
+- Closes connection
