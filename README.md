@@ -1,2 +1,2 @@
 # Fnix
-Async reverse proxy backend server written in Python.
+Fnix is an experimental Python reverse proxy and HTTP server designed for learning networking and web server internals.
