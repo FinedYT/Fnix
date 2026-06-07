@@ -1,15 +1,27 @@
+from src.fnix.http.parser import HTTPParser
+
+
 class Connection:
     def __init__(self, client_socket, client_address):
         self.client_socket = client_socket
         self.client_address = client_address
+        self.parser = HTTPParser()
 
     def handle(self):
         print(f"Client connected: {self.client_address}")
 
-        data = self.client_socket.recv(1024)
+        try:
+            data = self.client_socket.recv(1024)
 
-        print(data)
+            request = self.parser.parse(data)
 
-        self.client_socket.close()
+            print(f"Method: {request.method}")
+            print(f"Path: {request.path}")
+            print(f"Version: {request.version}")
 
-        print(f"Client disconnected: {self.client_address}")
+        except Exception as err:
+            print(f"Connection error: {err}")
+
+        finally:
+            self.client_socket.close()
+            print(f"Client disconnected: {self.client_address}")
