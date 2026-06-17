@@ -18,6 +18,8 @@ class Connection:
             data = self.client_socket.recv(1024)
 
             request = self.parser.parse(data)
+            for middleware in self.app.middlewares:
+                middleware.before_request(request)
 
             handler = self.app.router.resolve(request.path)
             if handler:
@@ -27,6 +29,9 @@ class Connection:
                 response.status_code = 404
                 response.status_text = "Not Found"
                 response.body = TemplateLoader.load_template("404.html")
+
+            for middleware in self.app.middlewares:
+                middleware.after_request(request, response)
 
             print(f"Method: {request.method}")
             print(f"Path: {request.path}")
