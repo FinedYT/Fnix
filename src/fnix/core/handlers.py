@@ -1,13 +1,12 @@
 from src.fnix.http.response import Response
+from src.fnix.core.template_loader import TemplateLoader
 
 response = Response()
 
 def index_handler():
-    with open("src/fnix/templates/index.html", encoding="utf-8") as f:
-        response.body = f.read()
+    response.body = TemplateLoader.load_template("index.html")
     return response
 
 def about_handler():
-    with open("src/fnix/templates/about.html", encoding="utf-8") as f:
-        response.body = f.read()
+    response.body = TemplateLoader.load_template("about.html")
     return response
