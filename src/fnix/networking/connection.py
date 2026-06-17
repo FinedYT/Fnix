@@ -2,6 +2,7 @@ from src.fnix.http.parser import HTTPParser
 from src.fnix.http.response import Response
 from src.fnix.http.response_builder import ResponseBuilder
 from src.fnix.core.template_loader import TemplateLoader
+from src.fnix.core.static_loader import StaticLoader
 class Connection:
 
     def __init__(self, client_socket, client_address, app):
@@ -21,9 +22,25 @@ class Connection:
             for middleware in self.app.middlewares:
                 middleware.before_request(request)
 
+            if request.path.startswith("/static/"):
+                file_path = request.path.replace("/static/", "")
+
+                content, mime = StaticLoader.load(file_path)
+
+                response = Response()
+                response.body = content.decode("utf-8")
+                response.headers = {"Content-Type": mime}
+
+                builder = ResponseBuilder()
+                http_response = builder.build(response)
+
+                self.client_socket.sendall(http_response.encode("utf-8"))
+
+                return
+
             handler = self.app.router.resolve(request.path)
             if handler:
-                response = handler()
+                response = handler(request)
             else:
                 response = Response()
                 response.status_code = 404
