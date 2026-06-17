@@ -1,4 +1,7 @@
 import socket
+from src.fnix.core.application import Application
+from src.fnix.core.handlers import home_handler
+from src.fnix.core.handlers import about_handler
 from connection import Connection
 
 
@@ -15,10 +18,20 @@ class Listener:
         print('server is launched on 127.0.0.1:8080')
 
         try:
+            app = Application()
+
+            app.add_route("/", home_handler)
+            app.add_route("/about", about_handler)
+
             while True:
                 client_socket, client_address = server_socket.accept()
 
-                conn = Connection(client_socket, client_address)
+                conn = Connection(
+                    client_socket,
+                    client_address,
+                    app
+                )
+
                 conn.handle()
 
         except KeyboardInterrupt:

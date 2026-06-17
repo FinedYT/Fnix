@@ -4,24 +4,33 @@ from src.fnix.http.response_builder import ResponseBuilder
 
 class Connection:
 
-    def __init__(self, client_socket, client_address):
+    def __init__(self, client_socket, client_address, app):
         self.client_socket = client_socket
         self.client_address = client_address
+        self.app = app
         self.parser = HTTPParser()
 
     def handle(self):
         print(f"Client connected: {self.client_address}")
 
         try:
+
             data = self.client_socket.recv(1024)
 
             request = self.parser.parse(data)
 
+            handler = self.app.router.resolve(request.path)
+            if handler:
+                response = handler()
+            else:
+                response = Response()
+                response.status_code = 404
+                response.status_text = "Not Found"
+                response.body = "Not Found"
+
             print(f"Method: {request.method}")
             print(f"Path: {request.path}")
             print(f"Version: {request.version}")
-
-            response = Response()
 
             builder = ResponseBuilder()
 
