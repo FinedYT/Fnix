@@ -1,6 +1,6 @@
 import socket
 from src.fnix.core.application import Application
-from src.fnix.core.handlers import home_handler
+from src.fnix.core.handlers import index_handler
 from src.fnix.core.handlers import about_handler
 from connection import Connection
 
@@ -20,7 +20,7 @@ class Listener:
         try:
             app = Application()
 
-            app.add_route("/", home_handler)
+            app.add_route("/", index_handler)
             app.add_route("/about", about_handler)
 
             while True:
