@@ -1,7 +1,7 @@
 from src.fnix.http.parser import HTTPParser
 from src.fnix.http.response import Response
 from src.fnix.http.response_builder import ResponseBuilder
-
+from src.fnix.core.template_loader import TemplateLoader
 class Connection:
 
     def __init__(self, client_socket, client_address, app):
@@ -26,7 +26,7 @@ class Connection:
                 response = Response()
                 response.status_code = 404
                 response.status_text = "Not Found"
-                response.body = "Not Found"
+                response.body = TemplateLoader.load_template("404.html")
 
             print(f"Method: {request.method}")
             print(f"Path: {request.path}")
