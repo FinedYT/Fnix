@@ -4,3 +4,4 @@ class Request:
         self.path = path
         self.version = version
         self.headers = {}
+        self.query = {}

@@ -8,6 +8,15 @@ class HTTPParser:
         lines = decoded_data.split("\r\n")
         request_line = lines[0]
         method, path, version = request_line.split(" ")
+        query = {}
+        if "?" in path:
+            path, query_string = path.split("?", 1)
+
+            for pair in query_string.split("&"):
+                if "=" in pair:
+                    key, value = pair.split("=", 1)
+                    query[key] = value
+
         headers = {}
 
         for line in lines[1:]:
@@ -23,5 +32,6 @@ class HTTPParser:
             version=version
         )
         request.headers = headers
+        request.query = query
 
         return request
