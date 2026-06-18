@@ -53,6 +53,7 @@ class Connection:
             print(
                 f" Method: {request.method}\n Path: {request.path}\n Version: {request.version}"
                   )
+            print(request.headers)
 
             builder = ResponseBuilder()
 

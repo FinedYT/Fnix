@@ -1,17 +1,27 @@
-from .request import request
+from .request import Request
 
 
 class HTTPParser:
 
     def parse(self, raw_data):
-        text = raw_data.decode("utf-8")
+        decoded_data = raw_data.decode("utf-8")
+        lines = decoded_data.split("\r\n")
+        request_line = lines[0]
+        method, path, version = request_line.split(" ")
+        headers = {}
 
-        first_line = text.split("\r\n")[0]
+        for line in lines[1:]:
+            if line == "":
+                break
 
-        method, path, version = first_line.split(" ")
+            key, value = line.split(":", 1)
+            headers[key.strip()] = value.strip()
 
-        return request(
+        request = Request(
             method=method,
             path=path,
             version=version
         )
+        request.headers = headers
+
+        return request
