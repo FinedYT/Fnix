@@ -14,8 +14,7 @@ class Listener:
         server_socket.bind(('localhost', 8080))
         server_socket.listen(5)
 
-        print('Listening on port 8080')
-        print('server is launched on 127.0.0.1:8080')
+        print('server is launched on port :8080')
 
         try:
             app = Application()

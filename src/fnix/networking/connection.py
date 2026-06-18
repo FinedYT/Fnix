@@ -50,9 +50,9 @@ class Connection:
             for middleware in self.app.middlewares:
                 middleware.after_request(request, response)
 
-            print(f"Method: {request.method}")
-            print(f"Path: {request.path}")
-            print(f"Version: {request.version}")
+            print(
+                f" Method: {request.method}\n Path: {request.path}\n Version: {request.version}"
+                  )
 
             builder = ResponseBuilder()
 
