@@ -7,5 +7,6 @@ class Request:
         self.headers = {}
         self.query = {}
         self.form = {}
+        self.json = {}
 
         self.body = ""

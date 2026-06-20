@@ -1,5 +1,5 @@
 from .request import Request
-
+import json
 
 class HTTPParser:
 
@@ -38,6 +38,15 @@ class HTTPParser:
             key, value = line.split(":", 1)
             headers[key.strip()] = value.strip()
 
+        json_data = {}
+        content_type = headers.get("Content-Type", "")
+
+        if "application/json" in content_type:
+            try:
+                json_data = json.loads(body)
+            except json.JSONDecodeError:
+                json_data = {}
+
         request = Request(
             method=method,
             path=path,
@@ -47,5 +56,6 @@ class HTTPParser:
         request.query = query
         request.body = body
         request.form = form
+        request.json = json_data
 
         return request
