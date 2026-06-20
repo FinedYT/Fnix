@@ -19,6 +19,18 @@ class HTTPParser:
 
         headers = {}
 
+        body = ""
+        if "\r\n\r\n" in decoded_data:
+            body = decoded_data.split("\r\n\r\n", 1)[1]
+
+        form = {}
+
+        for pair in body.split("&"):
+
+            if "=" in pair:
+                key, value = pair.split("=", 1)
+                form[key] = value
+
         for line in lines[1:]:
             if line == "":
                 break
@@ -33,5 +45,7 @@ class HTTPParser:
         )
         request.headers = headers
         request.query = query
+        request.body = body
+        request.form = form
 
         return request

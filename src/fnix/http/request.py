@@ -3,5 +3,9 @@ class Request:
         self.method = method
         self.path = path
         self.version = version
+
         self.headers = {}
         self.query = {}
+        self.form = {}
+
+        self.body = ""
