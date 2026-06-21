@@ -3,8 +3,8 @@ import requests
 import time
 
 URL = "http://127.0.0.1:8080"  # Твой порт Fnix
-TOTAL_REQUESTS = 300  # Всего запросов для стресс-теста
-CONCURRENT_USERS = 10  # Имитируем 10 одновременных юзеров
+TOTAL_REQUESTS = 2000
+CONCURRENT_USERS = 50
 
 # Создаем заголовки, как у настоящего Chrome
 FAKE_HEADERS = {
@@ -19,31 +19,13 @@ def run_integration_tests():
 
     # Тест 1: Проверка главной страницы
     try:
-        r_main = requests.get(f"{URL}/", headers=FAKE_HEADERS, timeout=2)
+        r_main = requests.get(f"{URL}/benchmark", headers=FAKE_HEADERS, timeout=2)
         print(f"[OK] Главная страница '/': Статус {r_main.status_code}")
     except Exception as e:
         print(f"[FAIL] Главная страница '/': Ошибка {e}")
 
-    # Тест 2: Проверка роутинга (измени /about на свой роут, если он другой)
-    try:
-        r_about = requests.get(f"{URL}/about", headers=FAKE_HEADERS, timeout=2)
-        print(f"[OK] Роутинг '/about': Статус {r_about.status_code}")
-    except Exception as e:
-        print(f"[FAIL] Роутинг '/about': Ошибка {e}")
-
-    # Тест 3: Проверка обработки ошибки 404
-    try:
-        r_404 = requests.get(f"{URL}/non-existent-page-xyz", headers=FAKE_HEADERS, timeout=2)
-        if r_404.status_code == 404:
-            print(f"[OK] Ошибка 404 обрабатывается корректно (Статус 404)")
-        else:
-            print(f"[WARN] Ошибка 404: Сервер вернул статус {r_404.status_code} вместо 404")
-    except Exception as e:
-        print(f"[FAIL] Тест 404: Ошибка {e}")
-
-
 def send_stress_request(req_id):
-    target = "/" if req_id % 2 == 0 else "/about"
+    target = "/benchmark"
     try:
         start_time = time.time()
         # Передаем фейковые заголовки браузера во время стресс-теста

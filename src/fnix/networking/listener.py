@@ -2,7 +2,7 @@ import socket
 from src.fnix.core.application import Application
 from src.fnix.core.handlers import index_handler
 from src.fnix.core.handlers import about_handler
-from sync_manager import SyncManager
+from thread_manager import ThreadManager
 from connection import Connection
 
 
@@ -23,7 +23,7 @@ class Listener:
             app.add_route("/", index_handler)
             app.add_route("/about", about_handler)
 
-            manager = SyncManager()
+            manager = ThreadManager()
 
             while True:
                 client_socket, client_address = server_socket.accept()
