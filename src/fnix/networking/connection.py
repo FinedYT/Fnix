@@ -3,6 +3,7 @@ from src.fnix.http.response import Response
 from src.fnix.http.response_builder import ResponseBuilder
 from src.fnix.core.template_loader import TemplateLoader
 from src.fnix.core.static_loader import StaticLoader
+
 class Connection:
 
     def __init__(self, client_socket, client_address, app):
@@ -38,7 +39,8 @@ class Connection:
 
                 return
 
-            handler = self.app.router.resolve(request.path)
+            handler = self.app.router.resolve(request.method, request.path)
+
             if handler:
                 response = handler(request)
             else:

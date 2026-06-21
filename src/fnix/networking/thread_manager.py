@@ -1,6 +1,6 @@
 from threading import Thread
-from connection import Connection
-from manager import ConnectionManager
+from .connection import Connection
+from .manager import ConnectionManager
 
 class ThreadManager(ConnectionManager):
     def handle(self, client_socket, client_address, app):
