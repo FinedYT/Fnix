@@ -1,12 +1,7 @@
 import socket
 
-from src.fnix.core.handlers import index_handler
-from src.fnix.core.handlers import about_handler
-
-from src.fnix.networking.thread_manager import ThreadManager
 from src.fnix.networking.sync_manager import SyncManager
-
-from src.fnix.networking.connection import Connection
+from src.fnix.networking.async_manager import AsyncManager
 
 
 class Listener:
@@ -21,8 +16,8 @@ class Listener:
         print('server is launched on port :8080')
 
         try:
-            if app.mode == "Thread":
-                manager = ThreadManager()
+            if app.mode == "Async":
+                manager = AsyncManager()
             else:
                 manager = SyncManager()
 

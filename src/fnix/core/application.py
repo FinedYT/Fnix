@@ -8,6 +8,7 @@ class Application:
         self.router = Router()
         self.middlewares = []
         self.mode = "sync"
+        self.max_workers = 10
 
     def run(self, mode="sync"):
         self.mode = mode
@@ -49,3 +50,8 @@ class Application:
 
     def add_middleware(self, middleware):
         self.middlewares.append(middleware)
+
+    def set_max_workers(self, max_workers):
+        if self.mode == "async":
+            self.max_workers = max_workers
+            return max_workers
