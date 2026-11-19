@@ -1,9 +1,33 @@
 # Fnix
+A lightweight HTTP server and reverse proxy framework for Python, designed for exploring networking and web server internals.
 
-IMPORTANT! 
-FNIX is an MVP project that is still in the development stage. REVERSE PROXY is not implemented (it is planned for release), ASYNC is not implemented, everything will still be improved, this is not the final product!!! 
+> [!NOTE]
+> **Project Status: Early MVP**
+> Fnix is currently under active development. Core synchronous HTTP server features are in progress, while asynchronous execution and reverse proxy capabilities are planned for upcoming releases.
 
----
+## Project Structure
+- `src/fnix/` — Core server implementation, routing, and request/response handling
+- `docs/` — Architecture notes and documentation
+- `tests/` — Unit and integration test suite
 
-What is this? 
-Fnix is an experimental Python reverse proxy and HTTP server designed for learning networking and web server internals.
+## Getting Started
+
+### Prerequisites
+- Python 3.10 or higher
+
+### Installation
+```bash
+git clone https://github.com
+cd Fnix
+```
+
+## Roadmap
+- [x] Basic HTTP request parsing and response serialization
+- [x] Synchronous TCP socket server loop
+- [ ] Routing and middleware pipeline
+- [ ] Asynchronous I/O support (`asyncio`)
+- [ ] Reverse proxy and upstream load balancing
+- [ ] Configuration file support
+
+## License
+This project is licensed under the [MIT License](LICENSE).
