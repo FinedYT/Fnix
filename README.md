@@ -17,7 +17,7 @@ A lightweight HTTP server and reverse proxy framework for Python, designed for e
 
 ### Installation
 ```bash
-git clone https://github.com
+git clone https://github.com/FinedYT/Fnix.git
 cd Fnix
 ```
 
